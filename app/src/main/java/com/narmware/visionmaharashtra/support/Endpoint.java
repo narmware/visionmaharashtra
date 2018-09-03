@@ -9,4 +9,8 @@ public class Endpoint {
     public static final String GET_NEWS = BASE_URL + "get_videos_by_cat.php";
     public static final String GET_CATEGORIES = BASE_URL + "get_categories.php";
 
+    //variables
+    public static final String CAT_ID = "cat_id";
+    public static final String VIDEO_ID = "v_id";
+
 }

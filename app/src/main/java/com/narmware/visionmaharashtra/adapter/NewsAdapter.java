@@ -1,6 +1,7 @@
 package com.narmware.visionmaharashtra.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.narmware.visionmaharashtra.R;
+import com.narmware.visionmaharashtra.activity.SingleVideoActivity;
 import com.narmware.visionmaharashtra.pojo.NewsItem;
 import com.squareup.picasso.Picasso;
 
@@ -40,16 +42,26 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
         NewsItem news = mData.get(position);
         holder.mTitle.setText(news.getV_title());
         holder.mDate.setText(news.getV_date());
-        Picasso.with(mContext)
+        String videoId = news.getVideo_id(news.getV_link());
+        holder.id=videoId;
+       /* Picasso.with(mContext)
                 .load(news.getV_link())
+                .into(holder.mImage);*/
+
+        Picasso.with(mContext)
+                .load("https://img.youtube.com/vi/" + videoId + "/0.jpg")
+                .fit()
+                .centerCrop()
+                .error(R.drawable.ic_launcher_background)
                 .into(holder.mImage);
+
         holder.id = news.getV_id();
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mData.size();
     }
 
     class NewsHolder extends RecyclerView.ViewHolder {
@@ -63,6 +75,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
             mDate = v.findViewById(R.id.item_news_date);
             mImage = v.findViewById(R.id.item_news_image);
 
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(mContext, SingleVideoActivity.class);
+                    i.putExtra("VIDEO_ID", id);
+                    mContext.startActivity(i);
+                }
+            });
         }
     }
 }
