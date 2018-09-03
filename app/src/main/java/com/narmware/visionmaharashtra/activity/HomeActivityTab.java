@@ -30,6 +30,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.narmware.visionmaharashtra.R;
 import com.narmware.visionmaharashtra.fragment.NewsFragment;
@@ -75,9 +76,9 @@ public class HomeActivityTab extends AppCompatActivity implements NewsFragment.O
     }
 
     private void init() {
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+        mVolleyRequest = Volley.newRequestQueue(HomeActivityTab.this);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        mNoConnectionDialog = new Dialog(HomeActivityTab.this, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -198,7 +199,6 @@ public class HomeActivityTab extends AppCompatActivity implements NewsFragment.O
         dialog.setMessage("Getting Details...");
         dialog.setCancelable(false);
         dialog.show();
-        Gson gson=new Gson();
 
         String url= Endpoint.GET_CATEGORIES;
 
@@ -219,7 +219,7 @@ public class HomeActivityTab extends AppCompatActivity implements NewsFragment.O
                             Category[] mlist=categoryResponse.getData();
 
                             for(Category item:mlist){
-                                categories.add(item);
+                                //categories.add(item);
                                 pagerAdapter.addFragment(new NewsFragment(),item.getTitle_app());
                             }
                             pagerAdapter.notifyDataSetChanged();

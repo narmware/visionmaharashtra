@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.narmware.visionmaharashtra">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
