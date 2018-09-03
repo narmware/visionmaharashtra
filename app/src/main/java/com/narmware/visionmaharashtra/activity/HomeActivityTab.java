@@ -1,8 +1,12 @@
 package com.narmware.visionmaharashtra.activity;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -11,17 +15,34 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
 import com.narmware.visionmaharashtra.R;
+import com.narmware.visionmaharashtra.fragment.NewsFragment;
+import com.narmware.visionmaharashtra.pojo.Category;
+import com.narmware.visionmaharashtra.pojo.CategoryResponse;
+import com.narmware.visionmaharashtra.support.Endpoint;
 
-public class HomeActivityTab extends AppCompatActivity {
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class HomeActivityTab extends AppCompatActivity implements NewsFragment.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -31,12 +52,15 @@ public class HomeActivityTab extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private PagerAdapter pagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    public Dialog mNoConnectionDialog;
+    public RequestQueue mVolleyRequest;
+    ArrayList<Category> categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,21 +69,25 @@ public class HomeActivityTab extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        init();
+    }
+
+    private void init() {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        pagerAdapter.addFragment(new NewsFragment(),"Rajkiya");
+        mViewPager.setAdapter(pagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-
-
+        GetCategories();
     }
 
 
@@ -83,6 +111,11 @@ public class HomeActivityTab extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     /**
@@ -122,23 +155,111 @@ public class HomeActivityTab extends AppCompatActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class PagerAdapter extends FragmentStatePagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        public PagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
+        List<Fragment> fragments=new ArrayList<>();
+        List<String> mFragmentTitleList = new ArrayList<>();
+
         @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+        public Fragment getItem(int index) {
+
+            return fragments.get(index);
+        }
+
+        public void addFragment(Fragment fragment,String title) {
+            fragments.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 8;
+            // get item count - equal to number of tabs
+            return fragments.size();
         }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
+    }
+
+
+    public void GetCategories() {
+        final ProgressDialog dialog = new ProgressDialog(HomeActivityTab.this);
+        dialog.setMessage("Getting Details...");
+        dialog.setCancelable(false);
+        dialog.show();
+        Gson gson=new Gson();
+
+        String url= Endpoint.GET_CATEGORIES;
+
+        Log.e("Dharam url",url);
+        JsonObjectRequest obreq = new JsonObjectRequest(Request.Method.GET,url,null,
+                new Response.Listener<JSONObject>() {
+
+                    // Takes the response from the JSON request
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try
+                        {
+                            Log.e("Dharam Json_string",response.toString());
+                            Gson gson = new Gson();
+
+                            CategoryResponse categoryResponse=gson.fromJson(response.toString(),CategoryResponse.class);
+                            Category[] mlist=categoryResponse.getData();
+
+                            for(Category item:mlist){
+                                categories.add(item);
+                                pagerAdapter.addFragment(new NewsFragment(),item.getTitle_app());
+                            }
+                            pagerAdapter.notifyDataSetChanged();
+                        } catch (Exception e) {
+
+                            e.printStackTrace();
+                            dialog.dismiss();
+                        }
+                        if(mNoConnectionDialog.isShowing()==true)
+                        {
+                            mNoConnectionDialog.dismiss();
+                        }
+                        dialog.dismiss();
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    // Handles errors that occur due to Volley
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", "Test Error");
+                         dialog.dismiss();
+                        showNoConnectionDialog();
+                    }
+                }
+        );
+        mVolleyRequest.add(obreq);
+    }
+
+    public void showNoConnectionDialog() {
+        mNoConnectionDialog.setContentView(R.layout.dialog_no_internet);
+        mNoConnectionDialog.setCancelable(false);
+        mNoConnectionDialog.show();
+
+        Button tryAgain = mNoConnectionDialog.findViewById(R.id.txt_retry);
+        tryAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }
