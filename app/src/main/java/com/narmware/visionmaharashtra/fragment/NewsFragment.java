@@ -214,7 +214,7 @@ public class NewsFragment extends Fragment {
 
     public void GetNewsByCat() {
         final ProgressDialog dialog = new ProgressDialog(getContext());
-        dialog.setMessage("Getting News...");
+        dialog.setMessage("Getting Categories...");
         dialog.setCancelable(false);
         dialog.show();
 
