@@ -30,6 +30,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.narmware.visionmaharashtra.R;
 import com.narmware.visionmaharashtra.fragment.NewsFragment;
@@ -75,13 +76,13 @@ public class HomeActivityTab extends AppCompatActivity implements NewsFragment.O
     }
 
     private void init() {
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+        mVolleyRequest = Volley.newRequestQueue(HomeActivityTab.this);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        mNoConnectionDialog = new Dialog(HomeActivityTab.this, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        pagerAdapter.addFragment(new NewsFragment(),"Rajkiya");
+        //pagerAdapter.addFragment(new NewsFragment(),"Rajkiya");
         mViewPager.setAdapter(pagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -116,39 +117,6 @@ public class HomeActivityTab extends AppCompatActivity implements NewsFragment.O
     @Override
     public void onFragmentInteraction(Uri uri) {
 
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_home_activity_tab, container, false);
-            return rootView;
-        }
     }
 
     /**
@@ -195,14 +163,13 @@ public class HomeActivityTab extends AppCompatActivity implements NewsFragment.O
 
     public void GetCategories() {
         final ProgressDialog dialog = new ProgressDialog(HomeActivityTab.this);
-        dialog.setMessage("Getting Details...");
+        dialog.setMessage("Getting Categories...");
         dialog.setCancelable(false);
         dialog.show();
-        Gson gson=new Gson();
 
         String url= Endpoint.GET_CATEGORIES;
 
-        Log.e("Dharam url",url);
+        Log.e("Cat url",url);
         JsonObjectRequest obreq = new JsonObjectRequest(Request.Method.GET,url,null,
                 new Response.Listener<JSONObject>() {
 
@@ -212,15 +179,15 @@ public class HomeActivityTab extends AppCompatActivity implements NewsFragment.O
 
                         try
                         {
-                            Log.e("Dharam Json_string",response.toString());
+                            Log.e("Cat Json_string",response.toString());
                             Gson gson = new Gson();
 
                             CategoryResponse categoryResponse=gson.fromJson(response.toString(),CategoryResponse.class);
                             Category[] mlist=categoryResponse.getData();
 
                             for(Category item:mlist){
-                                categories.add(item);
-                                pagerAdapter.addFragment(new NewsFragment(),item.getTitle_app());
+                                //categories.add(item);
+                                pagerAdapter.addFragment(NewsFragment.newInstance(item.getCat_id()),item.getTitle_app());
                             }
                             pagerAdapter.notifyDataSetChanged();
                         } catch (Exception e) {

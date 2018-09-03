@@ -6,6 +6,7 @@ package com.narmware.visionmaharashtra.pojo;
 
 public class NewsItem {
     private String v_id, v_title, v_link, v_date;
+    String video_id;
 
     public NewsItem(String v_id, String v_title, String v_link, String v_date) {
         this.v_id = v_id;
@@ -29,4 +30,10 @@ public class NewsItem {
     public String getV_date() {
         return v_date;
     }
+
+    public static String getVideo_id(String url) {
+        return url.substring(32,url.length());
+    }
+
+
 }
