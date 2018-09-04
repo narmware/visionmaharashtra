@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragment.FeaturedNewsFragment">
 
@@ -11,15 +11,46 @@
         android:background="@color/blue_50"
         android:layout_width="match_parent"
         android:layout_height="250dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
+                android:layout_above="@id/custom_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                />
+
+            <com.daimajia.slider.library.Indicators.PagerIndicator
+                android:id="@+id/custom_indicator"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                custom:selected_color="@color/grey_800"
+                custom:unselected_color="@color/grey_500"
+                custom:shape="oval"
+                custom:selected_padding_left="3dp"
+                custom:selected_padding_right="3dp"
+                custom:unselected_padding_left="3dp"
+                custom:unselected_padding_right="3dp"
+                custom:selected_width="6dp"
+                custom:selected_height="6dp"
+                custom:unselected_width="4dp"
+                custom:unselected_height="4dp"
+                />
+
+        </RelativeLayout>
     </FrameLayout>
 
-    <FrameLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/news_recycler"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include layout="@layout/news_item_featured"></include>
-
-    </FrameLayout>
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

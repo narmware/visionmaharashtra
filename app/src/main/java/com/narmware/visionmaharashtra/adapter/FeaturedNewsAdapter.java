@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,11 +23,11 @@ import java.util.ArrayList;
  * Created by rohitsavant on 03/09/18.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
+public class FeaturedNewsAdapter extends RecyclerView.Adapter<FeaturedNewsAdapter.NewsHolder> {
     private Context mContext;
     private ArrayList<NewsItem> mData;
 
-    public NewsAdapter(Context mContext, ArrayList<NewsItem> mData) {
+    public FeaturedNewsAdapter(Context mContext, ArrayList<NewsItem> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -36,7 +35,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
     @NonNull
     @Override
     public NewsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.news_item, parent, false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.news_item_featured, parent, false);
         return new NewsHolder(v);
     }
 
@@ -79,7 +78,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
         TextView mTitle, mDate;
         ImageView mImage;
         ImageButton mBtnShare;
-
         String video_id;
 
         public NewsHolder(View v) {

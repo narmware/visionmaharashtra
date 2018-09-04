@@ -30,12 +30,14 @@
         <activity android:name=".activity.SingleVideoActivity"></activity>
         <activity android:name=".activity.LoginActivity">
 
-<<<<<<< HEAD
+        </activity>
+
+        <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-=======
-
->>>>>>> d1d99f778935dde5cd556271900f5867e96454e9
         </activity>
     </application>
 

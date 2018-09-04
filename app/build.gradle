@@ -46,6 +46,10 @@ dependencies {
     compile files('libs/YouTubeAndroidPlayerApi.jar')
     compile 'com.github.f0ris.sweetalert:library:1.5.1'
     compile 'com.google.android.gms:play-services-auth:10.0.1'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.slider:library:1.1.5@aar'
 
+    compile 'com.daimajia.easing:library:2.0@aar'
+    compile 'com.daimajia.androidanimations:library:2.3@aar'
 }
 apply plugin: 'com.google.gms.google-services'

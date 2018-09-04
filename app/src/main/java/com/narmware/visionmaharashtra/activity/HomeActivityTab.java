@@ -33,6 +33,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.narmware.visionmaharashtra.R;
+import com.narmware.visionmaharashtra.fragment.FeaturedNewsFragment;
 import com.narmware.visionmaharashtra.fragment.NewsFragment;
 import com.narmware.visionmaharashtra.pojo.Category;
 import com.narmware.visionmaharashtra.pojo.CategoryResponse;
@@ -43,7 +44,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivityTab extends AppCompatActivity implements NewsFragment.OnFragmentInteractionListener {
+public class HomeActivityTab extends AppCompatActivity implements NewsFragment.OnFragmentInteractionListener,FeaturedNewsFragment.OnFragmentInteractionListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -187,7 +188,13 @@ public class HomeActivityTab extends AppCompatActivity implements NewsFragment.O
 
                             for(Category item:mlist){
                                 //categories.add(item);
-                                pagerAdapter.addFragment(NewsFragment.newInstance(item.getCat_id()),item.getTitle_app());
+                                if(item.getCat_id().equals("1"))
+                                {
+                                    pagerAdapter.addFragment(FeaturedNewsFragment.newInstance(item.getCat_id()),item.getTitle_app());
+                                }
+                                else{
+                                    pagerAdapter.addFragment(NewsFragment.newInstance(item.getCat_id()),item.getTitle_app());
+                                }
                             }
                             pagerAdapter.notifyDataSetChanged();
                         } catch (Exception e) {
