@@ -29,22 +29,22 @@
             android:name=".activity.HomeActivityTab"
             android:label="@string/title_activity_home_tab"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.SingleVideoActivity" />
-        <activity android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.SplashActivity"
-            android:screenOrientation="portrait">
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
+        <activity android:name=".activity.SingleVideoActivity" />
+        <activity android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
 
         <activity android:name=".activity.WebViewActivity"></activity>
-=======
         <activity
             android:screenOrientation="portrait"
             android:name=".activity.AboutUs"
@@ -52,7 +52,6 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
->>>>>>> e05e62383f4b5f761b429f4b1496d73c4a00c96c
     </application>
 
 </manifest>
