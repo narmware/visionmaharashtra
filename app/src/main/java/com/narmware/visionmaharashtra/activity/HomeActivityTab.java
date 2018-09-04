@@ -2,6 +2,7 @@ package com.narmware.visionmaharashtra.activity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -109,6 +110,8 @@ public class HomeActivityTab extends AppCompatActivity implements NewsFragment.O
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(HomeActivityTab.this, AboutUs.class);
+            startActivity(i);
             return true;
         }
 

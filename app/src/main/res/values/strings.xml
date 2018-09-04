@@ -11,5 +11,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_internet">Server not reachable at this moment.\n Please check your internet connection or try again later</string>
     <string name="youtube_api_key">AIzaSyDmOyLTwHm8sSdyrbGRkJDZwWJ-i4vk61A</string>
+    <string name="title_activity_about_us">संपर्क साधा</string>
 
 </resources>
