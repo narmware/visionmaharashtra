@@ -39,6 +39,8 @@ ImageView logo;
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
 
+        logo=findViewById(R.id.logo);
+
         YoYo.with(Techniques.Landing)
                 .duration(500)
                 .playOn(logo);

@@ -59,18 +59,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
                 .error(R.drawable.ic_launcher_background)
                 .into(holder.mImage);
 
+        holder.mItem=news;
+
     }
 
     @Override
     public int getItemCount() {
 
-        if(mData.size()==0)
-        {
-            NewsFragment.mEmptyDataLayout.setVisibility(View.VISIBLE);
-        }
-        else{
-            NewsFragment.mEmptyDataLayout.setVisibility(View.INVISIBLE);
-        }
 
         return mData.size();
     }
@@ -79,6 +74,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
         TextView mTitle, mDate;
         ImageView mImage;
         ImageButton mBtnShare;
+        NewsItem mItem;
 
         String video_id;
 
@@ -102,7 +98,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
             mBtnShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String shareBody = "Here is the share content body";
+                    String shareBody =  mItem.getV_link()
+                                        +"\n संपूर्ण बातमी पाहण्यासाठी Vision Maharashtra अँप डाउनलोड करा खालील लिंक वरून! \n"
+                                        +"https://tinyurl.com/y8cz47ag";
                     Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                     sharingIntent.setType("text/plain");
                     sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
