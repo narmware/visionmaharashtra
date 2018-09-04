@@ -17,15 +17,22 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.gson.Gson;
+import com.narmware.visionmaharashtra.MyApplication;
 import com.narmware.visionmaharashtra.R;
+import com.narmware.visionmaharashtra.pojo.Login;
+import com.narmware.visionmaharashtra.support.Endpoint;
+import com.narmware.visionmaharashtra.support.SharedPreferencesHelper;
+import com.narmware.visionmaharashtra.support.SupportFunctions;
 
 import org.json.JSONObject;
 
@@ -34,7 +41,7 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener  {
     public static GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 007;
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -54,9 +61,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
         context=LoginActivity.this;
-        //init();
+        init();
 
-       /* Intent i=getIntent();
+        Intent i=getIntent();
         String logout=i.getStringExtra("LogOut");
 
         if(logout!=null) {
@@ -69,10 +76,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 signIn();
             }
-        });*/
+        });
     }
 
-    /*private void init() {
+    private void init() {
         ButterKnife.bind(this);
         mVolleyRequest = Volley.newRequestQueue(LoginActivity.this);
 
@@ -154,18 +161,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(personPhotoUrl==null)
                 {
-                    personPhotoUrl="https://cdn1.iconfinder.com/data/icons/ui-5/502/profile-512.png";
+                    personPhotoUrl="null";
                 }
                 else {
                     RegisetrUser();
                 }
-
-              *//*  if(SharedPreferenceHelper.getIsLogin(LoginActivity.this)==false)
-                {
-
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                    finish();
-                }*//*
 
             }
 
@@ -228,16 +228,18 @@ public class LoginActivity extends AppCompatActivity {
         Gson gson=new Gson();
 
         Login login=new Login();
-        login.setUser_name(personName);
-
+        login.setU_name(personName);
+        login.setU_mail(email);
+        //login.setU_photo(personPhotoUrl);
 
         String json_string=gson.toJson(login);
+        Log.e("Login Json_string",json_string);
 
         HashMap<String,String> param = new HashMap();
-        param.put(Constants.JSON_STRING,json_string);
+        param.put(Endpoint.JSON_STRING,json_string);
 
         //url with params
-        String url= SupportFunctions.appendParam(MyApplication.REGISTER_USER,param);
+        String url= SupportFunctions.appendParam(Endpoint.LOGIN_USER,param);
 
         //url without params
         //String url= MyApplication.GET_CATEGORIES;
@@ -263,14 +265,13 @@ public class LoginActivity extends AppCompatActivity {
                             Login loginResponse= gson.fromJson(response.toString(), Login.class);
                             if(loginResponse.getResponse().equals("100") || loginResponse.getResponse().equals("200") )
                             {
-                                SharedPreferencesHelper.setUserId(loginResponse.getUser_id(),LoginActivity.this);
+                                SharedPreferencesHelper.setUserId(loginResponse.getU_id(),LoginActivity.this);
 
                                 SharedPreferencesHelper.setUserName(personName,LoginActivity.this);
                                 SharedPreferencesHelper.setUserPhotoUrl(personPhotoUrl,LoginActivity.this);
                                 SharedPreferencesHelper.setIsLogin(true,LoginActivity.this);
 
-                                Intent intent=new Intent(LoginActivity.this,LocationActivity.class);
-                                intent.putExtra("ActivityCall",Constants.CALL_FROM_LOGIN);
+                                Intent intent=new Intent(LoginActivity.this,HomeActivityTab.class);
                                 startActivity(intent);
                                 finish();
                             }
@@ -296,6 +297,5 @@ public class LoginActivity extends AppCompatActivity {
         );
         mVolleyRequest.add(obreq);
     }
-*/
 
 }

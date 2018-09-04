@@ -24,11 +24,7 @@
             android:label="@string/title_activity_home_tab"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".activity.SingleVideoActivity"></activity>
@@ -38,7 +34,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 
