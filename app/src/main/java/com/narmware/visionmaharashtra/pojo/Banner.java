@@ -5,7 +5,15 @@ package com.narmware.visionmaharashtra.pojo;
  */
 
 public class Banner {
-    String banner_title,banner_img;
+    String banner_title,banner_img,banner_url;
+
+    public String getBanner_url() {
+        return banner_url;
+    }
+
+    public void setBanner_url(String banner_url) {
+        this.banner_url = banner_url;
+    }
 
     public String getBanner_title() {
         return banner_title;

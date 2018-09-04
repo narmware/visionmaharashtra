@@ -15,5 +15,6 @@ public class Endpoint {
     public static final String CAT_ID = "cat_id";
     public static final String VIDEO_ID = "v_id";
     public static final String JSON_STRING = "json_string";
+    public static final String URL = "url";
 
 }

@@ -3,6 +3,7 @@ package com.narmware.visionmaharashtra.fragment;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.google.gson.Gson;
 import com.narmware.visionmaharashtra.MyApplication;
 import com.narmware.visionmaharashtra.R;
+import com.narmware.visionmaharashtra.activity.WebViewActivity;
 import com.narmware.visionmaharashtra.adapter.FeaturedNewsAdapter;
 import com.narmware.visionmaharashtra.adapter.NewsAdapter;
 import com.narmware.visionmaharashtra.pojo.Banner;
@@ -178,7 +180,13 @@ public class FeaturedNewsFragment extends Fragment {
                 @Override
                 public void onSliderClick(BaseSliderView slider) {
                     String url = getBannerUrl(slider.getUrl());
-                    Toast.makeText(getActivity(), url, Toast.LENGTH_SHORT).show();
+
+                    if(!url.equals("")) {
+                        Intent intent = new Intent(getContext(), WebViewActivity.class);
+                        intent.putExtra(Endpoint.URL, url);
+                        startActivity(intent);
+                    }
+                   // Toast.makeText(getActivity(), url, Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -193,7 +201,7 @@ public class FeaturedNewsFragment extends Fragment {
     private String getBannerUrl(String imageUrl) {
         for(Banner banner : mBannerImages) {
             if(banner.getBanner_img() == imageUrl) {
-                return banner.getBanner_title();
+                return banner.getBanner_url();
             }
         }
         return null;
