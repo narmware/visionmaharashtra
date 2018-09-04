@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     >
 
+    <ImageView
+        android:src="@drawable/vision_mah"
+        android:layout_centerInParent="true"
+        android:layout_width="250dp"
+        android:layout_height="150dp" />
+
     <RelativeLayout
         android:id="@+id/rltv_sign_in"
         android:layout_alignParentBottom="true"
