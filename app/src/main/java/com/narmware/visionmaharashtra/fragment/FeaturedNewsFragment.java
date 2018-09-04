@@ -369,7 +369,7 @@ public class FeaturedNewsFragment extends Fragment {
         tryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                GetNewsByCat();
             }
         });
     }

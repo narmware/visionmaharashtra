@@ -30,25 +30,24 @@
             android:label="@string/title_activity_home_tab"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.SingleVideoActivity" />
         <activity android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".activity.WebViewActivity"></activity>
         <activity
             android:screenOrientation="portrait"
             android:name=".activity.AboutUs"
-            android:label="@string/title_activity_about_us"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>

@@ -235,7 +235,7 @@ public class HomeActivityTab extends AppCompatActivity implements NewsFragment.O
         tryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                GetCategories();
             }
         });
     }
