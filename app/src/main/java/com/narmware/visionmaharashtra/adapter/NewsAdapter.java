@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.narmware.visionmaharashtra.R;
 import com.narmware.visionmaharashtra.activity.SingleVideoActivity;
+import com.narmware.visionmaharashtra.fragment.NewsFragment;
 import com.narmware.visionmaharashtra.pojo.NewsItem;
 import com.squareup.picasso.Picasso;
 
@@ -43,7 +44,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
         holder.mTitle.setText(news.getV_title());
         holder.mDate.setText(news.getV_date());
         String videoId = news.getVideo_id(news.getV_link());
-        holder.id=videoId;
+        holder.video_id=videoId;
+
        /* Picasso.with(mContext)
                 .load(news.getV_link())
                 .into(holder.mImage);*/
@@ -55,19 +57,27 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
                 .error(R.drawable.ic_launcher_background)
                 .into(holder.mImage);
 
-        holder.id = news.getV_id();
-
     }
 
     @Override
     public int getItemCount() {
+
+        if(mData.size()==0)
+        {
+            NewsFragment.mEmptyDataLayout.setVisibility(View.VISIBLE);
+        }
+        else{
+            NewsFragment.mEmptyDataLayout.setVisibility(View.INVISIBLE);
+        }
+
         return mData.size();
     }
 
     class NewsHolder extends RecyclerView.ViewHolder {
         TextView mTitle, mDate;
         ImageView mImage;
-        String id;
+        String video_id;
+
         public NewsHolder(View v) {
             super(v);
 
@@ -79,7 +89,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(mContext, SingleVideoActivity.class);
-                    i.putExtra("VIDEO_ID", id);
+                    i.putExtra("VIDEO_ID", video_id);
                     mContext.startActivity(i);
                 }
             });

@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -63,6 +64,7 @@ public class NewsFragment extends Fragment {
     ArrayList<NewsItem> newsItems;
     RecyclerView newsRecycler;
     NewsAdapter newsAdapter;
+    public static LinearLayout mEmptyDataLayout;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     int temp_id;
     public static boolean loading = true;
@@ -108,6 +110,7 @@ public class NewsFragment extends Fragment {
         mVolleyRequest = Volley.newRequestQueue(getContext());
         mNoConnectionDialog = new Dialog(getContext(), android.R.style.Theme_Light_NoTitleBar_Fullscreen);
         newsRecycler=view.findViewById(R.id.news_recycler);
+        mEmptyDataLayout=view.findViewById(R.id.empty_data_layout);
 
         setNewsAdapter();
         GetNewsByCat();

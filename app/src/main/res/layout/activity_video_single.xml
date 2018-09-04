@@ -12,7 +12,7 @@
         android:name="com.google.android.youtube.player.YouTubePlayerFragment"
         android:id="@+id/player_video"
         android:layout_width="match_parent"
-        android:layout_height="260dp"/>
+        android:layout_height="250dp"/>
 
 
 </RelativeLayout>
