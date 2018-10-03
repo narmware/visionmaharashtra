@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "253198738545",
+    "firebase_url": "https://visionmaharashtra-e9672.firebaseio.com",
+    "project_id": "visionmaharashtra-e9672",
+    "storage_bucket": "visionmaharashtra-e9672.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253198738545:android:61b99f38c70d580c",
+        "android_client_info": {
+          "package_name": "com.narmware.visionmaharashtranew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "253198738545-iq1qqh2uakuq4c1m8bk8jgd4sv46q4ed.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.narmware.visionmaharashtranew",
+            "certificate_hash": "5fe71a33245fd1e9d6393ffcf12ba068a9735718"
+          }
+        },
+        {
+          "client_id": "253198738545-igbsa89eelgh9id83v6sffbp58ha5ptr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASkehetF4vkRsmwUiYOXrbsqgtuWb5pBo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "253198738545-igbsa89eelgh9id83v6sffbp58ha5ptr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
