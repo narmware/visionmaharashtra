@@ -17,4 +17,6 @@ public class Endpoint {
     public static final String JSON_STRING = "json_string";
     public static final String URL = "url";
 
+    public static final String APP_URL = "https://tinyurl.com/yb74lrd8";
+
 }

@@ -15,6 +15,7 @@ import com.narmware.visionmaharashtra.R;
 import com.narmware.visionmaharashtra.activity.SingleVideoActivity;
 import com.narmware.visionmaharashtra.fragment.NewsFragment;
 import com.narmware.visionmaharashtra.pojo.NewsItem;
+import com.narmware.visionmaharashtra.support.Endpoint;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -96,7 +97,7 @@ public class FeaturedNewsAdapter extends RecyclerView.Adapter<FeaturedNewsAdapte
                 public void onClick(View v) {
                     String shareBody =  mItem.getV_link()
                             +"\n संपूर्ण बातमी पाहण्यासाठी Vision Maharashtra अँप डाउनलोड करा खालील लिंक वरून! \n"
-                            +"https://tinyurl.com/y8cz47ag";
+                            + Endpoint.APP_URL;
                     Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                     sharingIntent.setType("text/plain");
                     sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
